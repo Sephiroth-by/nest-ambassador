@@ -5,11 +5,19 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
-  canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     try {
       const jwt = request.cookies['jwt'];
-      return this.jwtService.verifyAsync(jwt);
+      const { scope } = await this.jwtService.verifyAsync(jwt);
+
+      const is_ambassador =
+        request.path.toString().indexOf('api/ambassador') !== -1;
+
+      return (
+        (is_ambassador && scope === 'ambassador') ||
+        (!is_ambassador && scope === 'admin')
+      );
     } catch (e) {
       console.log(e);
       return false;

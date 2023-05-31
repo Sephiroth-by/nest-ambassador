@@ -8,7 +8,7 @@ export abstract class AbstractService {
   }
 
   async findOne(options) {
-    return this.repository.findOne({ where: { ...options } });
+    return this.repository.findOne(options);
   }
 
   async update(id: number, options) {

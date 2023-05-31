@@ -4,10 +4,11 @@ import { ProductService } from './product.service';
 import { Product } from './product';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SharedModule } from '../shared/shared.module';
+import { ProductListener } from './listeners/product.listener';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product]), SharedModule],
   controllers: [ProductController],
-  providers: [ProductService],
+  providers: [ProductService, ProductListener],
 })
 export class ProductModule {}
