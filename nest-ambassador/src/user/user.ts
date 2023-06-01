@@ -1,5 +1,5 @@
-import { Exclude } from 'class-transformer';
-import { Order } from 'src/order/order';
+import { Exclude, Expose } from 'class-transformer';
+import { Order } from '../order/order';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('users')
@@ -32,5 +32,10 @@ export class User {
     return this.orders
       .filter((o) => o.complete)
       .reduce((s: number, o: Order) => s + o.ambassador_revenue, 0);
+  }
+
+  @Expose()
+  get name() {
+    return `${this.first_name} ${this.last_name}`;
   }
 }

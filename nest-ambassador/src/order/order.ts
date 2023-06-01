@@ -9,7 +9,7 @@ import {
 import { OrderItem } from './order-item';
 import { Exclude, Expose } from 'class-transformer';
 import { Link } from '../link/link';
-import { User } from 'src/user/user';
+import { User } from '../user/user';
 
 @Entity('orders')
 export class Order {
@@ -67,6 +67,7 @@ export class Order {
   @ManyToOne(() => User, (user) => user.orders, {
     createForeignKeyConstraints: false,
   })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Expose()
