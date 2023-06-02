@@ -9,6 +9,7 @@ import { OrderModule } from './order/order.module';
 import { LinkModule } from './link/link.module';
 import { SharedModule } from './shared/shared.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       synchronize: true,
     }),
     EventEmitterModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     AuthModule,
     ProductModule,
